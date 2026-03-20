@@ -1,0 +1,80 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ConfluenceAIBot.MainPage"
+             BackgroundColor="{StaticResource BgPrimary}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="15" Spacing="15">
+            
+            <Border BackgroundColor="{StaticResource BgCard}" Stroke="{StaticResource BorderColor}" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Confluence AI" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource TextPrimary}" HorizontalOptions="Center"/>
+                    <Label Text="Mobile Trading Assistant" FontSize="12" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center" Margin="0,0,0,10"/>
+                    
+                    <Entry x:Name="ApiKeyBox" Placeholder="Gemini API Key" IsPassword="True" BackgroundColor="#0D1117" TextColor="{StaticResource TextPrimary}"/>
+                    
+                    <Grid ColumnDefinitions="*,*">
+                        <Entry x:Name="SymbolBox" Grid.Column="0" Text="BTCUSDT" FontAttributes="Bold" BackgroundColor="#0D1117" TextColor="{StaticResource TextPrimary}" Margin="0,0,5,0"/>
+                        <Picker x:Name="TradingStyleCombo" Grid.Column="1" Title="Style" BackgroundColor="#0D1117" TextColor="{StaticResource TextPrimary}" Margin="5,0,0,0">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>SWING</x:String>
+                                    <x:String>SCALP</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </Grid>
+
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <CheckBox x:Name="UseNewsCheck" IsChecked="True" Color="{StaticResource AccentCyan}"/>
+                        <Label Text="Include Live News (RSS)" TextColor="{StaticResource TextMuted}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <Button x:Name="StartButton" Text="SCAN NOW" BackgroundColor="#238636" TextColor="White" FontAttributes="Bold" CornerRadius="8" HeightRequest="50" Clicked="StartButton_Clicked" Margin="0,10,0,0"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout x:Name="LoadingPanel" IsVisible="False" Spacing="10" HorizontalOptions="Center" Padding="20">
+                <ActivityIndicator IsRunning="True" Color="{StaticResource AccentCyan}"/>
+                <Label x:Name="StatusText" Text="Scanning Market..." TextColor="{StaticResource TextMuted}" FontSize="12"/>
+            </VerticalStackLayout>
+
+            <Border x:Name="VerdictCard" BackgroundColor="{StaticResource BgCard}" Stroke="{StaticResource AccentCyan}" StrokeThickness="2" StrokeShape="RoundRectangle 8" Padding="15" IsVisible="False">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="🤖 AI VERDICT" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource TextMuted}"/>
+                    
+                    <Border x:Name="BiasBadge" BackgroundColor="#21262D" Stroke="{StaticResource BorderColor}" StrokeThickness="1" StrokeShape="RoundRectangle 6" Padding="10">
+                        <Label x:Name="BiasText" Text="BULLISH" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource AccentGreen}" HorizontalOptions="Center"/>
+                    </Border>
+                    
+                    <Label x:Name="SetupTypeText" Text="Setup reason..." TextColor="{StaticResource TextMuted}" FontSize="13" HorizontalOptions="Center"/>
+                    
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*" RowSpacing="10" ColumnSpacing="10" Margin="0,15,0,0">
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="0"><Label Text="ENTRY" FontSize="10" TextColor="{StaticResource TextMuted}"/><Label x:Name="EntryZoneText" Text="-" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource AccentCyan}"/></VerticalStackLayout>
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="1"><Label Text="STOP LOSS" FontSize="10" TextColor="{StaticResource TextMuted}"/><Label x:Name="SLText" Text="-" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource AccentRed}"/></VerticalStackLayout>
+                        
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="0"><Label Text="TP 1" FontSize="10" TextColor="{StaticResource TextMuted}"/><Label x:Name="TP1Text" Text="-" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource AccentGreen}"/></VerticalStackLayout>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="1"><Label Text="TP 2" FontSize="10" TextColor="{StaticResource TextMuted}"/><Label x:Name="TP2Text" Text="-" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource AccentGreen}"/></VerticalStackLayout>
+                        
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center"><Label Text="TP 3 (EXTENDED)" FontSize="10" TextColor="{StaticResource TextMuted}" HorizontalOptions="Center"/><Label x:Name="TP3Text" Text="-" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource AccentGreen}" HorizontalOptions="Center"/></VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border x:Name="TechnicalsCard" BackgroundColor="{StaticResource BgCard}" Stroke="{StaticResource BorderColor}" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="15" IsVisible="False">
+                <VerticalStackLayout Spacing="15">
+                    <Grid ColumnDefinitions="*,Auto"><Label Text="LIVE PRICE" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource TextMuted}"/><Label x:Name="CurrentPriceText" Grid.Column="1" Text="$0.00" FontSize="16" FontAttributes="Bold" TextColor="{StaticResource AccentCyan}"/></Grid>
+                    <BoxView HeightRequest="1" Color="{StaticResource BorderColor}"/>
+                    
+                    <Grid ColumnDefinitions="*,Auto"><Label Text="200 EMA (15m)" FontSize="12" TextColor="{StaticResource TextMuted}"/><Label x:Name="Ema200Text" Grid.Column="1" Text="-" FontSize="14" TextColor="{StaticResource TextPrimary}"/></Grid>
+                    <Grid ColumnDefinitions="*,Auto"><Label Text="RSI (15m)" FontSize="12" TextColor="{StaticResource TextMuted}"/><Label x:Name="RsiValueText" Grid.Column="1" Text="-" FontSize="14" TextColor="{StaticResource TextPrimary}"/></Grid>
+                    <Grid ColumnDefinitions="*,Auto"><Label Text="MACD Hist" FontSize="12" TextColor="{StaticResource TextMuted}"/><Label x:Name="MacdHistText" Grid.Column="1" Text="-" FontSize="14" TextColor="{StaticResource TextPrimary}"/></Grid>
+                    <Grid ColumnDefinitions="*,Auto"><Label Text="SMC Bias" FontSize="12" TextColor="{StaticResource TextMuted}"/><Label x:Name="StructureText" Grid.Column="1" Text="-" FontSize="14" TextColor="{StaticResource TextPrimary}"/></Grid>
+                    <Grid ColumnDefinitions="*,Auto"><Label Text="Ichi Cloud" FontSize="12" TextColor="{StaticResource TextMuted}"/><Label x:Name="IchiStatusText" Grid.Column="1" Text="-" FontSize="14" TextColor="{StaticResource TextPrimary}"/></Grid>
+                    <Grid ColumnDefinitions="*,Auto"><Label Text="Gann Pivot" FontSize="12" TextColor="{StaticResource TextMuted}"/><Label x:Name="GannBaseText" Grid.Column="1" Text="-" FontSize="14" TextColor="{StaticResource TextPrimary}"/></Grid>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

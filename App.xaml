@@ -1,0 +1,17 @@
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ConfluenceAIBot.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="BgPrimary">#0D1117</Color>
+            <Color x:Key="BgCard">#161B22</Color>
+            <Color x:Key="BorderColor">#30363D</Color>
+            <Color x:Key="TextPrimary">#E6EDF3</Color>
+            <Color x:Key="TextMuted">#8B949E</Color>
+            <Color x:Key="AccentCyan">#00D4FF</Color>
+            <Color x:Key="AccentGreen">#3FB950</Color>
+            <Color x:Key="AccentRed">#F85149</Color>
+            <Color x:Key="AccentYellow">#D29922</Color>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
