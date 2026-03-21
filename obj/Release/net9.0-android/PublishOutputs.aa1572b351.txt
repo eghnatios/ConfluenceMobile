@@ -1,0 +1,3 @@
+/workspaces/ConfluenceMobile/bin/Release/net9.0-android/publish/com.companyname.confluenceaibot-Signed.apk
+/workspaces/ConfluenceMobile/bin/Release/net9.0-android/publish/com.companyname.confluenceaibot.apk
+/workspaces/ConfluenceMobile/bin/Release/net9.0-android/publish/_Microsoft.Android.Resource.Designer.dll

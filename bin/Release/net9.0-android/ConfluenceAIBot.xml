@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ConfluenceAIBot</name>
+    </assembly>
+    <members>
+        <member name="T:ConfluenceAIBot.Models.CandleData">
+            <summary>Internal OHLCV candle — decoupled from Binance.Net types.</summary>
+        </member>
+        <member name="T:ConfluenceAIBot.Models.GannLevels">
+            <summary>
+            Eight harmonic Gann price levels surrounding the live price.
+            Calculated using W.D. Gann's Square-of-9 octave divisions:
+            Whole → Half → Quarter → Eighth on each side.
+            </summary>
+        </member>
+        <member name="T:ConfluenceAIBot.Models.SmcStructure">
+            <summary>
+            Smart Money Concepts market structure result from 5m timeframe analysis.
+            Identifies swing highs/lows and classifies BOS / CHoCH events.
+            </summary>
+        </member>
+        <member name="P:ConfluenceAIBot.Models.SmcStructure.MarketStructure">
+            <summary>Human-readable classification: "Bullish BOS — HH/HL", "Bearish CHoCH", etc.</summary>
+        </member>
+        <member name="T:ConfluenceAIBot.Services.GannCalculator">
+             <summary>
+             Computes W.D. Gann harmonic price levels.
+            
+             Algorithm:
+               1. Detect order-of-magnitude (e.g. BTC @95,000 → magnitude = 1,000).
+               2. Unit step  = magnitude / 8  (e.g. 125).
+               3. Floor / ceiling of current price to the nearest step boundary.
+               4. Project the 4 named harmonic levels on each side.
+             </summary>
+        </member>
+        <member name="T:ConfluenceAIBot.Resource">
+            <summary>
+            Android Resource Designer class.
+            Exposes the Android Resource designer assembly into the project Namespace.
+            </summary>
+        </member>
+    </members>
+</doc>
